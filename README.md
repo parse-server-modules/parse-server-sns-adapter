@@ -1,4 +1,4 @@
-### Parse SNS Push Adapter
+### Parse Amazon SNS Push Adapter
 
 #### Setup
 
