@@ -8,7 +8,7 @@ const APNS = require('parse-server-push-adapter').APNS;
 const AWS = require('aws-sdk');
 
 const DEFAULT_REGION = "us-east-1";
-const classifyInstallations = require('parse-server-push-adapter').utils.classifyInstallations;
+const utils = require('parse-server-push-adapter').utils;
 
 function SNSPushAdapter(pushConfig) {
     this.validPushTypes = ['ios', 'android'];
@@ -56,7 +56,7 @@ SNSPushAdapter.prototype.getValidPushTypes = function () {
 }
 
 SNSPushAdapter.classifyInstallations = function (installations, validTypes) {
-    return classifyInstallations(installations, validTypes)
+    return utils.classifyInstallations(installations, validTypes)
 }
 
 SNSPushAdapter.generateiOSPayload = function (data, production) {
@@ -76,6 +76,8 @@ SNSPushAdapter.generateiOSPayload = function (data, production) {
 }
 
 SNSPushAdapter.generateAndroidPayload = function (data, pushId, timeStamp) {
+    var pushId = pushId || utils.randomString(10);
+    timeStamp = timeStamp || Date.now();
     var payload = GCM.generateGCMPayload(data.data, pushId, timeStamp, data.expirationTime);
 
     // SNS is verify sensitive to the body being JSON stringified but not GCM key.
@@ -210,7 +212,7 @@ SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload) {
  */
 
 SNSPushAdapter.prototype.send = function (data, installations) {
-    let deviceMap = classifyInstallations(installations, this.availablePushTypes);
+    let deviceMap = utils.classifyInstallations(installations, this.availablePushTypes);
 
     let sendPromises = Object.keys(deviceMap).forEach((pushType) => {
         var devices = deviceMap[pushType];
