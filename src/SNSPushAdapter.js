@@ -3,12 +3,12 @@
 //
 // Uses SNS for push notification
 const Parse = require('parse/node').Parse;
-const GCM = require('../parse-server/src/GCM');
-const APNS = require('../parse-server/src/APNS');
+const GCM = require('parse-server-push-adapter').GCM;
+const APNS = require('parse-server-push-adapter').APNS;
 const AWS = require('aws-sdk');
 
 const DEFAULT_REGION = "us-east-1";
-const classifyInstallations = require('../parse-server/src/Adapters/Push/PushAdapterUtils').classifyInstallations;
+const classifyInstallations = require('parse-server-push-adapter').utils.classifyInstallations;
 
 function SNSPushAdapter(pushConfig) {
     this.validPushTypes = ['ios', 'android'];
