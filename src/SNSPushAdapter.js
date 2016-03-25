@@ -133,20 +133,17 @@ SNSPushAdapter.prototype.sendToGCM = function (data, devices) {
 
 SNSPushAdapter.prototype.sendToSNS = function (payload, devices, platformArn) {
 
-    let exchangePromises = devices.map((device) = > {
+    let exchangePromises = devices.map((device) => {
             return this.exchangeTokenPromise(device, platformArn);
-})
-    ;
+    });
 
     // Publish off to SNS!
     // Bulk publishing is not yet supported on Amazon SNS.
-    let promises = Parse.Promise.when(exchangePromises).then(arns = > {
-            arns.map((arn) = > {
+    let promises = Parse.Promise.when(exchangePromises).then(arns => {
+        arns.map((arn) => {
             return this.sendSNSPayload(arn, payload);
-})
-    ;
-})
-    ;
+        });
+    });
 
     return promises;
 }
@@ -168,23 +165,19 @@ SNSPushAdapter.prototype.getPlatformArn = function (device, arn, callback) {
  * Exchange the device token for an ARN
  */
 SNSPushAdapter.prototype.exchangeTokenPromise = function (device, platformARN) {
-    return new Parse.Promise((resolve, reject) = > {
+    return new Parse.Promise((resolve, reject) => {
 
-            this.getPlatformArn(device, platformARN, (err, data) = > {
-            if (data.EndpointArn
-    )
-    {
-        resolve(data.EndpointArn);
-    }
-    else
-    {
-        console.error(err);
-        reject(err);
-    }
-})
-    ;
-})
-    ;
+        this.getPlatformArn(device, platformARN, (err, data) => {
+            if (data.EndpointArn) {
+                resolve(data.EndpointArn);
+            }
+            else
+            {
+                console.error(err);
+                reject(err);
+            }
+        });
+    });
 }
 
 /**
@@ -201,19 +194,15 @@ SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload) {
         TargetArn: arn
     };
 
-    return new Parse.Promise((resolve, reject) = > {
-            this.sns.publish(object, (err, data) = > {
-            if (err != null
-    )
-    {
-        console.error("Error sending push " + err);
-        return reject(err);
-    }
-    resolve(object);
-})
-    ;
-})
-    ;
+    return new Parse.Promise((resolve, reject) => {
+            this.sns.publish(object, (err, data) => {
+                if (err != null) {
+                    console.error("Error sending push " + err);
+                    return reject(err);
+                }
+                resolve(object);
+            });
+    });
 }
 
 /* For a given config object, endpoint and payload, publish via SNS
@@ -223,13 +212,12 @@ SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload) {
 SNSPushAdapter.prototype.send = function (data, installations) {
     let deviceMap = classifyInstallations(installations, this.availablePushTypes);
 
-    let sendPromises = Object.keys(deviceMap).forEach((pushType) = > {
-            var devices = deviceMap[pushType];
+    let sendPromises = Object.keys(deviceMap).forEach((pushType) => {
+        var devices = deviceMap[pushType];
 
-    var sender = this.senderMap[pushType];
-    return sender(data, devices);
-})
-    ;
+        var sender = this.senderMap[pushType];
+        return sender(data, devices);
+    });
 
     return Parse.Promise.when(sendPromises);
 }
