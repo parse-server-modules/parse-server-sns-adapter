@@ -12,7 +12,7 @@ The steps basically entail:
 
 Here is a sample config setup:
 
-```
+```javascript
 var pushConfig =  { pushTypes : { android: {ARN : YOUR-ANDROID_ARN-HERE},
                                  ios: {ARN: YOUR-IOS_ARN-HERE}, production: false, bundleId: "beta.parseplatform.yourappname"}
                                  },
