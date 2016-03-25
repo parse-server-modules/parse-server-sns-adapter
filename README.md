@@ -4,12 +4,13 @@
 
 The steps basically entail:
 
-a. Adding Platform endpoints to AWS console
-b. Setup an IAM role for platform endpoints.
+* Adding Platform endpoints to AWS console
+* Setup an IAM role for platform endpoints.
      * iOS requires you loading the prod/development certificates.
-c. Generate AWS access key and secret with this authorized IAM role.
-d. Enable CloudSearch logs for debugging.
+* Generate AWS access key and secret with this authorized IAM role.
+* Enable CloudSearch logs for debugging.
 
+Here is a sample config setup:
 
 ```
 var pushConfig =  { pushTypes : { android: {ARN : YOUR-ANDROID_ARN-HERE},
