@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rogerhu/parse-server-sns-adapter.git"
+    "url": "git@github.com:parse-server-modules/parse-server-sns-adapter.git"
   },
   "keywords": [
     "SNS",
@@ -32,7 +32,7 @@
   "author": "Roger Hu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rogerhu/parse-server-sns-adapter/issues"
+    "url": "https://github.com/parse-server-modules/parse-server-sns-adapter/issues"
   },
-  "homepage": "https://github.com/rogerhu/parse-server-sns-adapter#readme"
+  "homepage": "https://github.com/parse-server-modules/parse-server-sns-adapter/blob/master/README.md"
 }
