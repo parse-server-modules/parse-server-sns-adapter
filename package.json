@@ -1,6 +1,6 @@
 {
   "name": "parse-server-sns-adapter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Open Source Parse SNS Adapter",
   "main": "src/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "url": "git@github.com:parse-server-modules/parse-server-sns-adapter.git"
   },
   "keywords": [
+    "AWS",
     "SNS",
     "push",
     "parse-server"
