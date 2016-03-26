@@ -1,5 +1,10 @@
 ### Parse Amazon SNS Push Adapter
 
+[![Build
+Status](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter.svg?branch=master)](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter)
+[![codecov.io](https://codecov.io/github/parse-server-modules/parse-server-sns-adapter/coverage.svg?branch=master)](https://codecov.io/github/parse-server-modules/parse-server-sns-adapter?branch=master)
+[![NPM Version](https://img.shields.io/npm/v/parse-server-sns-adapter.svg?style=flat-square)](https://www.npmjs.com/package/parse-server-sns-adapter)
+
 #### Setup
 
 The steps basically entail:
