@@ -37,7 +37,7 @@ The steps basically entail:
 3. Select the `Policies` tab and click on the `Create Policy` button.
 4. Select `Create Your Own Policy` and fill out a `Policy Name`.
 5. Copy this Policy document that will grant blanket access to SNS services.  You can add more [restrictions](http://docs.aws.amazon.com/sns/latest/dg/AccessPolicyLanguage_UseCases_Sns.html) later.
-   ```json
+   ```javascript
    {
       "Version": "2012-10-17",
       "Statement": [
