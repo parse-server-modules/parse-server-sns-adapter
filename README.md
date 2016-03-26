@@ -67,7 +67,11 @@ The steps basically entail:
 
 #### Configuring Parse Server
 
-Here is a sample config setup:
+Here is a sample config setup.  You can specify the `SNS_ACCESS_KEY` and `SNS_SECRET_ACCESS_KEY`
+as environment variables, or you can hard-code them here.  
+
+For iOS certificates, make sure to set the `production` and `bundleId` according to the type
+of certificate generated.
 
 ```javascript
 var pushConfig =  { pushTypes : { android: {ARN : YOUR-ANDROID_ARN-HERE},
@@ -97,4 +101,4 @@ var api = new ParseServer({
 * Inside the Amazon SNS Console, click on the `Applications` tab, select an endpoint and choose the
 `Actions` dropdown to select `Delivery status`.  Click on `Create IAM roles` which will enable SNS to write to CloudWatch.   You can then go to the CloudWatch console, click on the `Logs`, and view the results of any pushes that may have been issued.
 
-* Make sure that you use the right Apple ceritificate for production/development purposes.  Your Parse push configuration needs to have the `production` flag set to be `true` or `false`, and you must configure your Amazon endpoints.  Also verify the `bundleId` corresponds to the app that can receive these push notifications.
+* Make sure that you use the right Apple certificate for production/development purposes.  Your Parse push configuration needs to have the `production` flag set to be `true` or `false`, and you must configure your Amazon endpoints.  Also verify the `bundleId` corresponds to the app that can receive these push notifications.
