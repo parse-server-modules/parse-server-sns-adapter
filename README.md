@@ -63,7 +63,7 @@ The steps basically entail:
 7. Go back to the `Users` tab and select the user you created earlier.
 8. In Permissions, select `Attach Policy` and find the policy we just created to attach it.
 9. Click on `Security Credentials` and click on `Create Access Key`.
-10. Record the credentials, which will be used to configure the Parse server.  You will need to set the access and secret key as the environment variables SNS_ACCESS_KEY and SNS_SECRET_KEY respectively.
+10. Record the credentials, which will be used to configure the Parse server.  You will need to set the access and secret key as the environment variables SNS_ACCESS_KEY and SNS_SECRET_ACCESS_KEY respectively.
 
 #### Configuring Parse Server
 
