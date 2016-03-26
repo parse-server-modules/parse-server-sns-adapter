@@ -1,9 +1,16 @@
 ### Parse Amazon SNS Push Adapter
 
-This project leverages the Amazon Simple Notification Service (SNS), which attempts to abstract away the complexities of
-different push notification systems.  Currently, there is only support for iOS (Apple Push Notification Service) and Android (Google Cloud Messaging) devices.
+This project leverages the Amazon Simple Notification Service (SNS), which attempts to abstract away the complexities of different push notification systems.  Currently, there is only support for iOS (Apple Push Notification Service) and Android (Google Cloud Messaging) devices.  
 
 To add other push types, you simply need to know what kind of payload format to be sent.  This adapter leverages code from the [parse-server-push-adapter](https://github.com/parse-server-modules/parse-server-push-adapter) repo.  See the [Amazon documentation](http://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html) if you wish to add other types.
+
+#### Known limitations
+
+* The adapter always makes a network call to Amazon's service to exchange a device token for an Amazon Resource Number (ARN).   
+
+* Amazon will disable devices that have ARN.  There is currently no check to see if the ARN used to send is enabled.
+
+* SNS does not appear to have batching sends with GCM.
 
 [![Build
 Status](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter.svg?branch=master)](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter)
@@ -84,3 +91,10 @@ var api = new ParseServer({
   push: pushConfig
 });
 ```
+
+#### Troubleshooting
+
+* Inside the Amazon SNS Console, click on the `Applications` tab, select an endpoint and choose the
+`Actions` dropdown to select `Delivery status`.  Click on `Create IAM roles` which will enable SNS to write to CloudWatch.   You can then go to the CloudWatch console, click on the `Logs`, and view the results of any pushes that may have been issued.
+
+* Make sure that you use the right Apple ceritificate for production/development purposes.  Your Parse push configuration needs to have the `production` flag set to be `true` or `false`, and you must configure your Amazon endpoints.  Also verify the `bundleId` corresponds to the app that can receive these push notifications.
