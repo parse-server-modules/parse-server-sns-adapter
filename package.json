@@ -4,7 +4,7 @@
   "description": "Open Source Parse SNS Adapter",
   "main": "src/index.js",
   "scripts": {
-      "test": "TESTING=1 node ./node_modules/.bin/isparta cover -x **/spec/** ./node_modules/jasmine/bin/jasmine.js"
+    "test": "TESTING=1 node ./node_modules/.bin/isparta cover -x **/spec/** --root src ./node_modules/jasmine/bin/jasmine.js"
   },
   "dependencies": {
     "parse": "^1.8.0",
@@ -12,6 +12,7 @@
     "parse-server-push-adapter": "^1.0.1"
   },
   "devDependencies": {
+    "codecov": "^1.0.1",
     "isparta": "^4.0.0",
     "jasmine": "^2.3.2"
   },
