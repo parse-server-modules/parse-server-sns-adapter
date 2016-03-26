@@ -34,7 +34,7 @@ The steps basically entail:
 2. Select the `SNS` Service.
 3. Select `Create Platform Application`.
      * For GCM setup, you must provide an API key.  See the [instructions](https://github.com/ParsePlatform/parse-server/wiki/Push#gcm-android) about how to generate this key.
-     * For APNS setup, you must generate an SSL certificate that can connect to Apple's servers.  See step #1 of this [tutorail](https://github.com/ParsePlatform/PushTutorial/blob/master/iOS/README.md#1-creating-the-ssl-certificate).  You will need to choose between `Apple Production` and `Apple Development` depending on the cert generated.
+     * For APNS setup, you must generate an SSL certificate that can connect to Apple's servers.  See step #1 of this [tutorial](https://github.com/ParsePlatform/PushTutorial/blob/master/iOS/README.md#1-creating-the-ssl-certificate).  You will need to choose between `Apple Production` and `Apple Development` depending on the cert generated.
 4. Record the Amazon Resource Number (ARN) associated with this new endpoint.
 
 #### Setting up IAM Role
