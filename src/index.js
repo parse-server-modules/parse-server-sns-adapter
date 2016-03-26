@@ -1,4 +1,3 @@
-import SNSPushAdapter from './SNSPushAdapter'
+var SNSPushAdapter = require('./SNSPushAdapter');
 
-export default SNSPushAdapter
 module.exports = SNSPushAdapter;
