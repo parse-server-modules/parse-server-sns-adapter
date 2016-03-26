@@ -63,7 +63,7 @@ The steps basically entail:
 7. Go back to the `Users` tab and select the user you created earlier.
 8. In Permissions, select `Attach Policy` and find the policy we just created to attach it.
 9. Click on `Security Credentials` and click on `Create Access Key`.
-10. Record the credentials, which will be used to configure the Parse server.  You will need to set the access and secret key as the environment variables SNS_ACCESS_KEY and SNS_SECRET_ACCESS_KEY respectively.
+10. Record the credentials, which will be used to configure the Parse server.  You will need to set the access and secret key as the environment variables `SNS_ACCESS_KEY` and `SNS_SECRET_ACCESS_KEY` respectively.
 
 #### Configuring Parse Server
 
@@ -84,8 +84,8 @@ For iOS certificates, make sure to set the `production` and `bundleId` according
 of certificate generated.
 
 ```javascript
-var pushConfig =  { pushTypes : { android: {ARN : YOUR-ANDROID_ARN-HERE},
-                                  ios: {ARN: YOUR-IOS_ARN-HERE, production: false, bundleId: "beta.parseplatform.yourappname"}
+var pushConfig =  { pushTypes : { android: {ARN : 'arn:aws:sns:us-west-2:12345678:app/GCM/Android'},
+                                  ios: {ARN:'arn:aws:sns:us-west-2:12345678:app/APNS_SANDBOX/ParseAppleTest', production: false, bundleId: "beta.parseplatform.yourappname"}
                                  },
                    accessKey: process.env.SNS_ACCESS_KEY,
                    secretKey: process.env.SNS_SECRET_ACCESS_KEY,
