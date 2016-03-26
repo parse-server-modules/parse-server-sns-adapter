@@ -202,6 +202,9 @@ SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload) {
                     console.error("Error sending push " + err);
                     return reject(err);
                 }
+                if (process.env.SNS_DEBUG && data && data.MessageId) {
+                    console.log("Successfully sent push to " + data.MessageId);
+                }
                 resolve(object);
             });
     });
