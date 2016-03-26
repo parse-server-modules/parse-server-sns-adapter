@@ -85,7 +85,7 @@ of certificate generated.
 
 ```javascript
 var pushConfig =  { pushTypes : { android: {ARN : YOUR-ANDROID_ARN-HERE},
-                                  ios: {ARN: YOUR-IOS_ARN-HERE}, production: false, bundleId: "beta.parseplatform.yourappname"}
+                                  ios: {ARN: YOUR-IOS_ARN-HERE, production: false, bundleId: "beta.parseplatform.yourappname"}
                                  },
                    accessKey: process.env.SNS_ACCESS_KEY,
                    secretKey: process.env.SNS_SECRET_ACCESS_KEY,
