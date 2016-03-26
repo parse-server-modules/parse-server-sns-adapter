@@ -6,6 +6,9 @@ const Parse = require('parse/node').Parse;
 const GCM = require('parse-server-push-adapter').GCM;
 const APNS = require('parse-server-push-adapter').APNS;
 const AWS = require('aws-sdk');
+const log = require('npmlog');
+
+const LOG_PREFIX = 'parse-server-sns-adapter';
 
 const DEFAULT_REGION = "us-east-1";
 const utils = require('parse-server-push-adapter').utils;
@@ -175,7 +178,7 @@ SNSPushAdapter.prototype.exchangeTokenPromise = function (device, platformARN) {
             }
             else
             {
-                console.error(err);
+                log.error(LOG_PREFIX, err);
                 reject(err);
             }
         });
@@ -206,7 +209,7 @@ SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload, device) {
 
         this.sns.publish(object, (err, data) => {
             if (err != null) {
-                console.error("Error sending push " + err);
+                log.error(LOG_PREFIX, "Error sending push " + err);
                 response.transmitted = false;
                 if (err.stack) {
                     response.response = err.stack;
@@ -214,8 +217,8 @@ SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload, device) {
                 return reject(response);
             }
 
-            if ((process.env.VERBOSE || process.env.VERBOSE_PARSE_SERVER_SNS_ADAPTER) && data && data.MessageId) {
-                console.log("Successfully sent push to " + data.MessageId);
+            if (data && data.MessageId) {
+                log.verbose(LOG_PREFIX, "Successfully sent push to " + data.MessageId);
             }
 
             response.transmitted = true;
