@@ -176,27 +176,26 @@ describe('SNSPushAdapter', () => {
         snsPushAdapter.sns = snsSender;
 
         // Mock installations
-        var installations = [
-            {
-                deviceType: 'android',
-                deviceToken: 'androidToken'
-            }
-        ];
+        var installation = {
+            deviceType: 'android',
+            deviceToken: 'androidToken'
+        };
 
-        var promise = snsPushAdapter.sendSNSPayload("123", {"test": "hello"});
+        var promise = snsPushAdapter.sendSNSPayload("123", {"test": "hello"}, installation);
 
         var callback = jasmine.createSpy();
-        promise.then(function () {
+        promise.then(function (response) {
             expect(snsSender.publish).toHaveBeenCalled();
             var args = snsSender.publish.calls.first().args;
             expect(args[0].MessageStructure).toEqual("json");
             expect(args[0].TargetArn).toEqual("123");
             expect(args[0].Message).toEqual('{"test":"hello"}');
+            expect(response.transmitted).toBeTruthy();
             done();
         });
     });
 
-    it('errors sending SNS Payload to Android and iOS', (done) => {
+    it('errors exchanging ARNS', (done) => {
         // Mock out Amazon SNS token exchange
         var snsSender = jasmine.createSpyObj('sns', ['publish', 'createPlatformEndpoint']);
 
@@ -206,6 +205,32 @@ describe('SNSPushAdapter', () => {
 
         snsPushAdapter.getPlatformArn(makeDevice("android"), "android", function(err, data) {
             expect(err).not.toBe(null);
+            done();
+        });
+    });
+
+    it('errors sending SNS Payload to Android and iOS', (done) => {
+
+        var snsSender = jasmine.createSpyObj('sns', ['publish'])
+        snsSender.publish.and.callFake(function (object, callback) {
+            callback({'stack': 'abc'}, {});
+        });
+
+        snsPushAdapter.sns = snsSender;
+
+        // Mock installation
+        var installation = {
+            deviceType: 'android',
+            deviceToken: 'androidToken'
+        }
+
+        var promise = snsPushAdapter.sendSNSPayload("123", {"test": "hello"}, installation);
+
+        var callback = jasmine.createSpy();
+        promise.catch(function (response) {
+            expect(snsSender.publish).toHaveBeenCalled();
+            expect(response.transmitted).toBeFalsy();
+            expect(response.response).toEqual('abc');
             done();
         });
     });
