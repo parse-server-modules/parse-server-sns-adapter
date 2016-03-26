@@ -7,7 +7,7 @@ Status](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter.svg?
 
 This adapter can be used with Parse open source to leverage the Amazon Simple Notification Service (SNS), which attempts to abstract away the complexities of different push notification systems.  Currently, there is only support for iOS (Apple Push Notification Service) and Android (Google Cloud Messaging) devices.  
 
-To add other push types, you simply need to know what kind of payload format to be sent and this adapter will need to be modified to send it.  This adapter leverages code from the [parse-server-push-adapter](https://github.com/parse-server-modules/parse-server-push-adapter) repo.  See the [Amazon documentation](http://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html) if you wish to add other types.
+To add other push types, you simply need to know what kind of payload format to be sent and this adapter will need to be modified to send it.  This adapter leverages code from the [parse-server-push-adapter](https://github.com/parse-server-modules/parse-server-push-adapter) repo.  See the [Amazon documentation](http://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html) if you wish to add other types.  Make sure to add test coverage for any additional ones inside the `spec` folder.
 
 #### Known limitations
 
@@ -110,3 +110,23 @@ var api = new ParseServer({
 `Actions` dropdown to select `Delivery status`.  Click on `Create IAM roles` which will enable SNS to write to CloudWatch.   You can then go to the CloudWatch console, click on the `Logs`, and view the results of any pushes that may have been issued.
 
 * Make sure that you use the right Apple certificate for production/development purposes.  Your Parse push configuration needs to have the `production` flag set to be `true` or `false`, and you must configure your Amazon endpoints.  Also verify the `bundleId` corresponds to the app that can receive these push notifications.
+
+* If you wish to test this adapter locally and assuming you have a Parse open source server setup locally, make sure to install `node-inspector`:
+
+  ```bash
+  npm install node-inspector
+  ```
+
+  Assuming you've hard-coded your configuration inside `index.js`, run your Parse server with the following line:
+
+  ```bash
+  node --debug index.js
+  ```
+
+  Run `node-inspector` in a separate window:
+
+  ```bash```
+  node_modules/.bin/node-inspector
+  ```
+
+  Open up http://127.0.0.1:8080/?port=5858 locally. You can use the Chrome debugging tools to set breakpoints in the JavaScript code.
