@@ -14,16 +14,22 @@ Here is a sample config setup:
 
 ```javascript
 var pushConfig =  { pushTypes : { android: {ARN : YOUR-ANDROID_ARN-HERE},
-                                 ios: {ARN: YOUR-IOS_ARN-HERE}, production: false, bundleId: "beta.parseplatform.yourappname"}
+                                  ios: {ARN: YOUR-IOS_ARN-HERE}, production: false, bundleId: "beta.parseplatform.yourappname"}
                                  },
                    accessKey: process.env.SNS_ACCESS_KEY,
                    secretKey: process.env.SNS_SECRET_ACCESS_KEY,
                    region: "us-west-2"
                  };
 
-var SNSPushAdapter = require('parse-server-sns-adapter/SNSPushAdapter');
+var SNSPushAdapter = require('parse-server-sns-adapter/SNSPushAdapter').default;
 var snsPushAdapter = new SNSPushAdapter(pushConfig);
 pushConfig['adapter'] = snsPushAdapter;
 ```
 
+You then need to instantiate the ParseServer info with the following:
 
+```javascript
+var api = new ParseServer({
+
+  push: pushConfig
+```
