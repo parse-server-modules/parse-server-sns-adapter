@@ -1,6 +1,6 @@
 ### Parse Amazon SNS Push Adapter
 
-This project leverages the Amazon Simple Notification Service (SNS), which attempts to abstract away the complexities of 
+This project leverages the Amazon Simple Notification Service (SNS), which attempts to abstract away the complexities of
 different push notification systems.  Currently, there is only support for iOS (Apple Push Notification Service) and Android (Google Cloud Messaging) devices.   
 
 To add other push types, you simply need to know what kind of payload format to be sent.  This adapter leverages code from the [parse-server-push-adapter](https://github.com/parse-server-modules/parse-server-push-adapter) repo.  See the [Amazon documentation](http://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html) if you wish to add other types.
@@ -14,7 +14,7 @@ Status](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter.svg?
 
 The steps basically entail:
 
-* Adding Platform endpoints to AWS console 
+* Adding Platform endpoints to AWS console
    * Apple requires you loading the prod/development certificates.
 * Setup an IAM role for platform endpoints.
 * Generate AWS access key and secret with this authorized IAM role.
@@ -29,7 +29,7 @@ The steps basically entail:
      * For GCM setup, you must provide an API key.  See the [instructions](https://github.com/ParsePlatform/parse-server/wiki/Push#gcm-android) about how to generate this key.
      * For APNS setup, you must generate an SSL certificate that can connect to Apple's servers.  See step #1 of this [tutorail](https://github.com/ParsePlatform/PushTutorial/blob/master/iOS/README.md#1-creating-the-ssl-certificate).  You will need to choose between `Apple Production` and `Apple Development` depending on the cert generated.
 4. Record the Amazon Resource Number (ARN) associated with this new endpoint.
- 
+
 #### Setting up IAM Role
 
 1. Go to the Amazon [IAM](https://console.aws.amazon.com/iam/home?#home) console.
@@ -37,20 +37,20 @@ The steps basically entail:
 3. Select the `Policies` tab and click on the `Create Policy` button.
 4. Select `Create Your Own Policy` and fill out a `Policy Name`.
 5. Copy this Policy document that will grant blanket access to SNS services.  You can add more [restrictions](http://docs.aws.amazon.com/sns/latest/dg/AccessPolicyLanguage_UseCases_Sns.html) later.
-   ```javascript
-   {
-      "Version": "2012-10-17",
-      "Statement": [
-      {
-        "Action": [
-          "sns:*"
-        ],
-        "Effect": "Allow",
-        "Resource": "*"
-      }
-     ]
-   }
-   ```
+     ```javascript
+     {
+        "Version": "2012-10-17",
+        "Statement": [
+        {
+          "Action": [
+            "sns:*"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+       ]
+     }
+     ```
 6. Make sure to `Validate the Policy` and click `Create Policy`.
 7. Go back to the `Users` tab and select the user you created earlier.
 8. In Permissions, select `Attach Policy` and find the policy we just created to attach it.
