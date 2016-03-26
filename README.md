@@ -5,13 +5,13 @@ Status](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter.svg?
 [![codecov.io](https://codecov.io/github/parse-server-modules/parse-server-sns-adapter/coverage.svg?branch=master)](https://codecov.io/github/parse-server-modules/parse-server-sns-adapter?branch=master)
 [![NPM Version](https://img.shields.io/npm/v/parse-server-sns-adapter.svg?style=flat-square)](https://www.npmjs.com/package/parse-server-sns-adapter)
 
-This adapter can be used with Parse open source to leverage the Amazon Simple Notification Service (SNS), which attempts to abstract away the complexities of different push notification systems.  Currently, there is only support for iOS (Apple Push Notification Service) and Android (Google Cloud Messaging) devices.  
+This adapter can be used with Parse open source to leverage the Amazon Simple Notification Service (SNS), which attempts to abstract away the complexities of different push notification systems.  Currently, there is only support for iOS (Apple Push Notification Service) and Android (Google Cloud Messaging) devices.
 
 To add other push types, you simply need to know what kind of payload format to be sent and this adapter will need to be modified to send it.  This adapter leverages code from the [parse-server-push-adapter](https://github.com/parse-server-modules/parse-server-push-adapter) repo.  See the [Amazon documentation](http://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html) if you wish to add other types.  Make sure to add test coverage for any additional ones inside the `spec` folder.
 
 #### Known limitations
 
-* The adapter always makes a network call to Amazon's service to exchange a device token for an Amazon Resource Number (ARN).   
+* The adapter always makes a network call to Amazon's service to exchange a device token for an Amazon Resource Number (ARN).
 
 * Amazon will disable devices that have ARN.  There is currently no check to see if the ARN used to send is enabled.
 
@@ -72,14 +72,14 @@ You will need add this NPM package to the `package.json` used in conjunction wit
 
 ```javascript
 "dependencies": {
-  "parse-server-sns-adapter": "~0.0.5"
+  "parse-server-sns-adapter": "~0.0.6"
 }
 ```
 
 Type `npm install` and make sure this module got added to your `node_modules` dir.
 
 Here is a sample config setup.  You can specify the `SNS_ACCESS_KEY` and `SNS_SECRET_ACCESS_KEY`
-as environment variables, or you can hard-code them here.  
+as environment variables, or you can hard-code them here.
 
 For iOS certificates, make sure to set the `production` and `bundleId` according to the type
 of certificate generated.
