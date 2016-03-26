@@ -37,4 +37,5 @@ You then need to instantiate the ParseServer info with the following:
 var api = new ParseServer({
 
   push: pushConfig
+});
 ```
