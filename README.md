@@ -49,8 +49,8 @@ The steps basically entail:
         "Resource": "*"
       }
      ]
-    }
-    ```
+   }
+   ```
 6. Make sure to `Validate the Policy` and click `Create Policy`.
 7. Go back to the `Users` tab and select the user you created earlier.
 8. In Permissions, select `Attach Policy` and find the policy we just created to attach it.
