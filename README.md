@@ -67,6 +67,14 @@ The steps basically entail:
 
 #### Configuring Parse Server
 
+You will need add this NPM package to your `package.json`:
+
+```javascript
+"dependencies": {
+  "parse-server-sns-adapter": "~0.0.5"
+}
+```
+
 Here is a sample config setup.  You can specify the `SNS_ACCESS_KEY` and `SNS_SECRET_ACCESS_KEY`
 as environment variables, or you can hard-code them here.  
 
