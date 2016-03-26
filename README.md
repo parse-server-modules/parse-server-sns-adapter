@@ -67,13 +67,15 @@ The steps basically entail:
 
 #### Configuring Parse Server
 
-You will need add this NPM package to your `package.json`:
+You will need add this NPM package to the `package.json` used in conjunction with the Parse open source package:
 
 ```javascript
 "dependencies": {
   "parse-server-sns-adapter": "~0.0.5"
 }
 ```
+
+Type `npm install` and make sure this module got added to your `node_modules` dir.
 
 Here is a sample config setup.  You can specify the `SNS_ACCESS_KEY` and `SNS_SECRET_ACCESS_KEY`
 as environment variables, or you can hard-code them here.  
