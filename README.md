@@ -92,7 +92,7 @@ var pushConfig =  { pushTypes : { android: {ARN : YOUR-ANDROID_ARN-HERE},
                    region: "us-west-2"
                  };
 
-var SNSPushAdapter = require('parse-server-sns-adapter/SNSPushAdapter').default;
+var SNSPushAdapter = require('parse-server-sns-adapter').default;
 var snsPushAdapter = new SNSPushAdapter(pushConfig);
 pushConfig['adapter'] = snsPushAdapter;
 ```
