@@ -13,7 +13,7 @@ To add other push types, you simply need to know what kind of payload format to 
 
 * The adapter always makes a network call to Amazon's service to exchange a device token for an Amazon Resource Number (ARN).
 
-* Amazon will disable devices that have ARN.  There is currently no check to see if the ARN used to send is enabled.
+* Amazon will disable devices that have device tokens that are considered invalid by the push notifications.  There is currently no check in place to see if the ARN used to send is enabled.
 
 * SNS does not appear to have batching sends with GCM.
 
