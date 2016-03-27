@@ -143,14 +143,6 @@ describe('SNSPushAdapter', () => {
         var snsSender = jasmine.createSpyObj('sns', ['createPlatformEndpoint']);
         snsPushAdapter.sns = snsSender;
 
-        // Mock installations
-        var installations = [
-            {
-                deviceType: 'android',
-                deviceToken: 'androidToken'
-            }
-        ];
-
         snsSender.createPlatformEndpoint.and.callFake(function(object, callback) {
             callback(null, {'EndpointArn' : 'ARN'});
         });
@@ -162,6 +154,24 @@ describe('SNSPushAdapter', () => {
             var args = snsSender.createPlatformEndpoint.calls.first().args;
             expect(args[0].PlatformApplicationArn).toEqual("GCM_ID");
             expect(args[0].Token).toEqual("androidToken");
+            done();
+        });
+    });
+
+    it('errors exchanging device tokens for an Amazon Resource Number (ARN)', (done) => {
+
+        // Mock out Amazon SNS token exchange
+        var snsSender = jasmine.createSpyObj('sns', ['createPlatformEndpoint']);
+        snsPushAdapter.sns = snsSender;
+
+        snsSender.createPlatformEndpoint.and.callFake(function(object, callback) {
+            callback("error", {});
+        });
+
+        var promise = snsPushAdapter.exchangeTokenPromise(makeDevice("androidToken"), "GCM_ID");
+
+        promise.catch(function() {
+            expect(snsSender.createPlatformEndpoint).toHaveBeenCalled();
             done();
         });
     });
