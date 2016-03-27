@@ -189,6 +189,7 @@ SNSPushAdapter.prototype.exchangeTokenPromise = function (device, platformARN) {
  * Send the Message, MessageStructure, and Target Amazon Resource Number (ARN) to SNS
  * @param arn Amazon Resource ID
  * @param payload JSON-encoded message
+ * @param device Device info (used for returning push status)
  * @returns {Parse.Promise}
  */
 SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload, device) {
