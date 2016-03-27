@@ -1,12 +1,13 @@
 {
   "name": "parse-server-sns-adapter",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Open Source Parse SNS Adapter",
   "main": "src/index.js",
   "scripts": {
     "test": "TESTING=1 node ./node_modules/.bin/isparta cover -x **/spec/** --root src ./node_modules/jasmine/bin/jasmine.js"
   },
   "dependencies": {
+    "npmlog": "^2.0.3",
     "parse": "^1.8.0",
     "aws-sdk": "~2.2.33",
     "parse-server-push-adapter": "^1.0.1"

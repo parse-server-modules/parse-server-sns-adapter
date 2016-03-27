@@ -6,6 +6,9 @@ const Parse = require('parse/node').Parse;
 const GCM = require('parse-server-push-adapter').GCM;
 const APNS = require('parse-server-push-adapter').APNS;
 const AWS = require('aws-sdk');
+const log = require('npmlog');
+
+const LOG_PREFIX = 'parse-server-sns-adapter';
 
 const DEFAULT_REGION = "us-east-1";
 const utils = require('parse-server-push-adapter').utils;
@@ -136,14 +139,14 @@ SNSPushAdapter.prototype.sendToGCM = function (data, devices) {
 SNSPushAdapter.prototype.sendToSNS = function (payload, devices, platformArn) {
 
     let exchangePromises = devices.map((device) => {
-            return this.exchangeTokenPromise(device, platformArn);
+        return this.exchangeTokenPromise(device, platformArn);
     });
 
     // Publish off to SNS!
     // Bulk publishing is not yet supported on Amazon SNS.
-    let promises = Parse.Promise.when(exchangePromises).then(arns => {
-        arns.map((arn) => {
-            return this.sendSNSPayload(arn, payload);
+    let promises = Parse.Promise.when(exchangePromises).then(exchangeResponses => {
+        exchangeResponses.map((exchangeResponse) => {
+            return this.sendSNSPayload(exchangeResponse.arn, payload, exchangeResponse.device);
         });
     });
 
@@ -171,11 +174,11 @@ SNSPushAdapter.prototype.exchangeTokenPromise = function (device, platformARN) {
 
         this.getPlatformArn(device, platformARN, (err, data) => {
             if (data.EndpointArn) {
-                resolve(data.EndpointArn);
+                resolve({device: device, arn: data.EndpointArn});
             }
             else
             {
-                console.error(err);
+                log.error(LOG_PREFIX, err);
                 reject(err);
             }
         });
@@ -188,7 +191,7 @@ SNSPushAdapter.prototype.exchangeTokenPromise = function (device, platformARN) {
  * @param payload JSON-encoded message
  * @returns {Parse.Promise}
  */
-SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload) {
+SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload, device) {
 
     var object = {
         Message: JSON.stringify(payload),
@@ -197,13 +200,31 @@ SNSPushAdapter.prototype.sendSNSPayload = function (arn, payload) {
     };
 
     return new Parse.Promise((resolve, reject) => {
-            this.sns.publish(object, (err, data) => {
-                if (err != null) {
-                    console.error("Error sending push " + err);
-                    return reject(err);
+        var response = {
+            device: {
+                deviceType: device.deviceType,
+                deviceToken: device.deviceToken.toString('hex')
+            }
+        };
+
+        this.sns.publish(object, (err, data) => {
+            if (err != null) {
+                log.error(LOG_PREFIX, "Error sending push " + err);
+                response.transmitted = false;
+                if (err.stack) {
+                    response.response = err.stack;
                 }
-                resolve(object);
-            });
+                return reject(response);
+            }
+
+            if (data && data.MessageId) {
+                log.verbose(LOG_PREFIX, "Successfully sent push to " + data.MessageId);
+            }
+
+            response.transmitted = true;
+            response.response = data;
+            resolve(response);
+        });
     });
 }
 

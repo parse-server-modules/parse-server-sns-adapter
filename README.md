@@ -72,7 +72,7 @@ You will need add this NPM package to the `package.json` used in conjunction wit
 
 ```javascript
 "dependencies": {
-  "parse-server-sns-adapter": "~0.0.6"
+  "parse-server-sns-adapter": "~0.0.7"
 }
 ```
 
@@ -93,7 +93,7 @@ var pushConfig =  { pushTypes : { android: {ARN : 'arn:aws:sns:us-west-2:1234567
                    region: "us-west-2"
                  };
 
-var SNSPushAdapter = require('parse-server-sns-adapter').default;
+var SNSPushAdapter = require('parse-server-sns-adapter');
 var snsPushAdapter = new SNSPushAdapter(pushConfig);
 pushConfig['adapter'] = snsPushAdapter;
 ```
@@ -133,3 +133,5 @@ var api = new ParseServer({
   ```
 
   Open up http://127.0.0.1:8080/?port=5858 locally. You can use the Chrome debugging tools to set breakpoints in the JavaScript code.
+
+* Set `VERBOSE=1` or `VERBOSE_PARSE_SERVER_SNS_ADAPTER=1` as an environment variable to see all logging.
