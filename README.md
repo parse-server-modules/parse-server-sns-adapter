@@ -72,7 +72,7 @@ You will need add this NPM package to the `package.json` used in conjunction wit
 
 ```javascript
 "dependencies": {
-  "parse-server-sns-adapter": "~0.0.6"
+  "parse-server-sns-adapter": "~0.0.7"
 }
 ```
 
