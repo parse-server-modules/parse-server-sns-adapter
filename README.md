@@ -23,6 +23,16 @@ The steps basically entail:
 
 * Adding Platform endpoints to AWS console
    * Apple requires you loading the prod/development certificates.
+
+       * Generate a certificate request.
+       * Upload the `.certSigningRequest` file.
+       * Download the cert.
+       * "Open With > Keychain access (default)"  You should see the private key associated with this cert.  Export this file as a .p12 file
+           * `openssl pkcs12 -in myapnsappprivatekey.p12 -out myapnsappprivatekey.pem -nodes -clcerts`
+       * Verify the cert can be used to connect to Apple's push service:
+           * Dev - `openssl s_client -connect gateway.sandbox.push.apple.com:2195 -cert myapnsappcert.pem -key myapnsappprivatekey.pem`
+           * Prod - `openssl s_client -connect gateway.push.apple.com:2195 -cert myapnsappcert.pem -key myapnsappprivatekey.pem`
+
 * Setup an IAM role for platform endpoints.
 * Generate AWS access key and secret with this authorized IAM role.
 * Enable CloudSearch logs for debugging.
