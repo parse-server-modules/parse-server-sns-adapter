@@ -28,8 +28,15 @@ The steps basically entail:
        * Upload the `.certSigningRequest` file.
        * Download the cert.
        * "Open With > Keychain access (default)"  You should see the private key associated with this cert.  Export this file as a .p12 file
+         and upload it through the Amazon SNS console.
+
+    * You can also verify the cert can be used to connect to Apple's push service:
+
+        - Convert the x509 cert to PEM format:
+           * `openssl x509 -in myapnsappcert.cer -inform DER -out myapnscert.pem`
+        - Convert the private key (not the cert) to `.p12` format
            * `openssl pkcs12 -in myapnsappprivatekey.p12 -out myapnsappprivatekey.pem -nodes -clcerts`
-       * Verify the cert can be used to connect to Apple's push service:
+        - Try making a connection request to Apple's push servers:
            * Dev - `openssl s_client -connect gateway.sandbox.push.apple.com:2195 -cert myapnsappcert.pem -key myapnsappprivatekey.pem`
            * Prod - `openssl s_client -connect gateway.push.apple.com:2195 -cert myapnsappcert.pem -key myapnsappprivatekey.pem`
 
