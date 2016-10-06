@@ -158,6 +158,24 @@ describe('SNSPushAdapter', () => {
         });
     });
 
+    it('errors exchanging device tokens for an Amazon Resource Number (ARN) because data is null', (done) => {
+
+        // Mock out Amazon SNS token exchange
+        var snsSender = jasmine.createSpyObj('sns', ['createPlatformEndpoint']);
+        snsPushAdapter.sns = snsSender;
+
+        snsSender.createPlatformEndpoint.and.callFake(function(object, callback) {
+            callback("error", null);
+        });
+
+        var promise = snsPushAdapter.exchangeTokenPromise(makeDevice("androidToken"), "GCM_ID");
+
+        promise.catch(function() {
+            expect(snsSender.createPlatformEndpoint).toHaveBeenCalled();
+            done();
+        });
+    });
+
     it('errors exchanging device tokens for an Amazon Resource Number (ARN)', (done) => {
 
         // Mock out Amazon SNS token exchange
