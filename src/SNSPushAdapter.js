@@ -173,7 +173,7 @@ SNSPushAdapter.prototype.exchangeTokenPromise = function (device, platformARN) {
     return new Parse.Promise((resolve, reject) => {
 
         this.getPlatformArn(device, platformARN, (err, data) => {
-            if (data.EndpointArn) {
+            if (data !== null && data.EndpointArn) {
                 resolve({device: device, arn: data.EndpointArn});
             }
             else
