@@ -1,6 +1,6 @@
 {
   "name": "parse-server-sns-adapter",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Open Source Parse SNS Adapter",
   "main": "src/index.js",
   "scripts": {
