@@ -1,5 +1,7 @@
 ### Parse Amazon SNS Push Adapter
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/parse-server-modules/parse-server-sns-adapter.svg)](https://greenkeeper.io/)
+
 [![Build
 Status](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter.svg?branch=master)](https://travis-ci.org/parse-server-modules/parse-server-sns-adapter)
 [![codecov.io](https://codecov.io/github/parse-server-modules/parse-server-sns-adapter/coverage.svg?branch=master)](https://codecov.io/github/parse-server-modules/parse-server-sns-adapter?branch=master)
